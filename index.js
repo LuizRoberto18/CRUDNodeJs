@@ -2,9 +2,11 @@
 const express = require("express");
 const server = express();
 
+//function para o express reconhecer informações JSON
 server.use(express.json());
 
-const cursos = ["fullStack master", "desenvolvimento mobile", "viver de node js"];
+//lista de cursos
+const cursos = ["fullStack master", "desenvolvimento mobile", "Desenvolvedor back-end"];
 
 // CRUD --> create, Read, Update, Delete
 /*
@@ -51,17 +53,22 @@ server.put("/cursos/:index", (req, res) => {
     const { name } = req.body;
 
     cursos[index] = name;
-    // no insomnia fica: colocar um Id no link, "name": "novoNome"
+    /*no insomnia fica: colocar um Id no link, 
+    {
+        "name": "novoNome"
+    }
+    */
     return res.json(cursos);
 });
 
 // deletar um curso
 server.delete("/cursos/:index", (req, res) => {
     const { index } = req.params;
-
+    //function para remover um elemento
     cursos.splice(index, 1);
     // no insomnia fica: colocar o Id do curso > send
     return res.json({ message: "O curso foi deletado" });
 });
 
+//servidor está rodando na porta 3000
 server.listen(3000);
